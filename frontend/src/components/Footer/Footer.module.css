@@ -1,0 +1,81 @@
+@import "../../Theme.css";
+
+.content {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    min-height: 48px;
+    padding: 0 var(--space-lg);
+    background: var(--color-bg-secondary);
+    border-top: 1px solid #d7d7d7;
+    color: var(--color-secondary-text);
+    font-family: var(--font-body);
+    font-size: 10px;
+}
+
+.message {
+    margin: 0;
+    white-space: nowrap;
+}
+
+.communicationLog {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-width: 0;
+}
+
+.camera {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: var(--font-weight-medium);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.statusIndicator {
+    width: 14px;
+    height: 14px;
+    flex: 0 0 14px;
+    border-radius: var(--radius-full);
+}
+
+.connected .statusIndicator {
+    background: #47c921;
+    border: 1px solid #299b0b;
+}
+
+.disconnected .statusIndicator {
+    background: var(--color-error);
+    border: 1px solid #a90000;
+}
+
+@media (max-width: 520px) {
+    .content {
+        padding-inline: 12px;
+    }
+
+    .message {
+        max-width: 42vw;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .communicationLog {
+        gap: 8px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .camera {
+        font-size: 10px;
+    }
+}

@@ -1,0 +1,160 @@
+.screen {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 5vw, 72px);
+  overflow: hidden;
+  color: #ffffff;
+  text-align: center;
+  animation: interactionScreen both ease-in-out;
+}
+
+.success {
+  background: #2f9e0b;
+}
+
+.error {
+  background: #d50000;
+}
+
+.quick {
+  animation-duration: 1300ms;
+}
+
+.standard {
+  animation-duration: 1800ms;
+}
+
+.final {
+  animation-duration: 2300ms;
+}
+
+.screen h2 {
+  max-width: 900px;
+  margin: 0;
+  color: inherit;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 4.8rem);
+  font-weight: 900;
+  line-height: 1.08;
+  text-wrap: balance;
+  animation: interactionMessage both cubic-bezier(0.2, 0.85, 0.25, 1.15);
+}
+
+.quick h2 {
+  animation-duration: 1300ms;
+}
+
+.standard h2 {
+  animation-duration: 1800ms;
+}
+
+.final h2 {
+  animation-duration: 2300ms;
+}
+
+/* Depois de .screen/.final para o texto final não sumir (só o fundo ficava). */
+.screen.persist {
+  animation-name: interactionScreenPersist;
+  animation-duration: 900ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+.screen.persist h2 {
+  animation-name: interactionMessagePersist;
+  animation-duration: 900ms;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+}
+
+@keyframes interactionScreen {
+  0% {
+    opacity: 0;
+  }
+
+  12%,
+  82% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes interactionScreenPersist {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes interactionMessage {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+
+  18%,
+  76% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-16px) scale(1.03);
+  }
+}
+
+@keyframes interactionMessagePersist {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.92);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .screen,
+  .screen h2 {
+    animation-name: interactionFade;
+  }
+
+  .screen.persist,
+  .screen.persist h2 {
+    animation-name: interactionFadePersist;
+  }
+}
+
+@keyframes interactionFade {
+  0%,
+  100% {
+    opacity: 0;
+  }
+
+  15%,
+  85% {
+    opacity: 1;
+  }
+}
+
+@keyframes interactionFadePersist {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

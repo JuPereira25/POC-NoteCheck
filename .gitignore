@@ -1,0 +1,10 @@
+node_modules/
+**/bin/
+**/obj/
+dist/
+electron/dist/
+electron/resources/
+*.user
+.vs/
+.idea/
+*.log

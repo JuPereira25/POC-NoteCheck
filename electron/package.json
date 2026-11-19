@@ -1,0 +1,40 @@
+{
+  "name": "notecheck",
+  "version": "0.5.1",
+  "private": true,
+  "description": "MONTAGEM",
+  "license": "UNLICENSED",
+  "main": "main.js",
+  "scripts": {
+    "compile": "tsc",
+    "dev:frontend": "npm --prefix ../frontend run dev -- --host 127.0.0.1 --port 5173 --strictPort",
+    "dev:electron": "wait-on http-get://127.0.0.1:5173 && node launch-electron.js",
+    "start": "npm run compile && concurrently --kill-others --names frontend,electron \"npm:dev:frontend\" \"npm:dev:electron\"",
+    "build:backend": "dotnet publish ../backend/backend.csproj -c Release -r win-x64 --self-contained true -o resources/backend",
+    "build:frontend": "npm --prefix ../frontend run build && powershell -NoProfile -Command \"Remove-Item -Recurse -Force resources/frontend -ErrorAction SilentlyContinue; Copy-Item -Recurse ../frontend/dist resources/frontend\"",
+    "dist": "npm run compile && npm run build:backend && npm run build:frontend && electron-builder --win"
+  },
+  "build": {
+    "appId": "com.notecheck.montagem",
+    "productName": "MONTAGEM",
+    "directories": { "output": "dist" },
+    "files": ["main.js", "preload.js", "package.json", "assets/favicon.ico"],
+    "extraResources": [
+      { "from": "resources/backend", "to": "backend" },
+      { "from": "resources/frontend", "to": "frontend" }
+    ],
+    "win": { "target": ["nsis"] },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true
+    }
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "concurrently": "^9.2.1",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "typescript": "^6.0.0",
+    "wait-on": "^8.0.3"
+  }
+}
